@@ -3,6 +3,9 @@ public class Main {
     int imageCount = 10000;
     String soursPrnt = "https://prnt.sc/";
     String soursImgur = "https://i.imgur.com/";
+    String look = "https://look.com.ua/pic/202301/1920x1080/look.com.ua-";
+    int lookCounter = 399653;
+            //https://look.com.ua/pic/202301/1920x1080/look.com.ua-400461.jpg
     ImageDownloader downloader = new ImageDownloader();
     PageDownloader pageDownloader = new PageDownloader();
     LinkGenerator linkGenerator = new LinkGenerator();
@@ -10,6 +13,18 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Start program");
+        new ThreadLook().start();
+/*        new ThreadLook().start();
+        new ThreadLook().start();
+        new ThreadLook().start();
+        new ThreadLook().start();
+        new ThreadLook().start();
+        new ThreadLook().start();
+        new ThreadLook().start();*/
+
+
+
+/*
         new ThreadPrnt().start();
         new ThreadPrnt().start();
         new ThreadPrnt().start();
@@ -18,6 +33,7 @@ public class Main {
         new ThreadPrnt().start();
         new ThreadPrnt().start();
         new ThreadPrnt().start();
+*/
 
 
 /*
@@ -27,6 +43,13 @@ public class Main {
         new ThreadImgur().start();
 */
 
+    }
+    public void downloadLook() {
+
+        for ( int i = lookCounter; i>0; i--){
+            System.out.println("image number: " + i);
+            downloader.downloadFiles(look + i + ".jpg", "look/" + i + ".jpg", 128);
+        }
     }
 
     public void downloadPrnt(){
@@ -57,5 +80,6 @@ public class Main {
             System.out.println("image: " + link + " download");
         }
     }
+
 
 }
