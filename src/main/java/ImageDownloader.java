@@ -33,6 +33,7 @@ public class ImageDownloader {
             }
             writer.flush();
             writer.close();
+            System.out.println("image "+ strPath + " downloaded");
             in.close();
         } catch (Exception e) {
             System.out.println(e);

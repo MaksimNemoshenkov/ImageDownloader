@@ -1,54 +1,32 @@
 
 public class Main {
-    int imageCount = 10000;
-    String soursPrnt = "https://prnt.sc/";
-    String soursImgur = "https://i.imgur.com/";
-    String look = "https://look.com.ua/pic/202301/1920x1080/look.com.ua-";
-    int lookCounter = 399653;
-            //https://look.com.ua/pic/202301/1920x1080/look.com.ua-400461.jpg
-    ImageDownloader downloader = new ImageDownloader();
-    PageDownloader pageDownloader = new PageDownloader();
-    LinkGenerator linkGenerator = new LinkGenerator();
+    private int imageCount = 10000;
+    private String soursPrnt = "https://prnt.sc/";
+    private String soursImgur = "https://i.imgur.com/";
+    private String look = "https://look.com.ua/pic/201610/2560x1440/look.com.ua-";
+    private static int lookCounter = 181750;
+    private final ImageDownloader downloader = new ImageDownloader();
+    private final PageDownloader pageDownloader = new PageDownloader();
+    private final LinkGenerator linkGenerator = new LinkGenerator();
+    private final String strPath = "C:\\Users\\kater\\OneDrive\\Bilder\\";
+    private final int buffSize = 1024;
+
 
 
     public static void main(String[] args) {
         System.out.println("Start program");
         new ThreadLook().start();
-/*        new ThreadLook().start();
-        new ThreadLook().start();
-        new ThreadLook().start();
-        new ThreadLook().start();
-        new ThreadLook().start();
-        new ThreadLook().start();
-        new ThreadLook().start();*/
 
+       //new ThreadPrnt().start();
 
-
-/*
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-        new ThreadPrnt().start();
-*/
-
-
-/*
-        new ThreadImgur().start();
-        new ThreadImgur().start();
-        new ThreadImgur().start();
-        new ThreadImgur().start();
-*/
-
+       //new ThreadImgur().start();
     }
-    public void downloadLook() {
 
-        for ( int i = lookCounter; i>0; i--){
+    public synchronized void downloadLook() {
+        while (true){
+            int i = ++ lookCounter;
             System.out.println("image number: " + i);
-            downloader.downloadFiles(look + i + ".jpg", "look/" + i + ".jpg", 128);
+            downloader.downloadFiles(look + i + ".jpg", strPath+"look\\" + i + ".jpg", buffSize);
         }
     }
 
@@ -64,7 +42,7 @@ public class Main {
             page = page.substring(page.indexOf("image_url="));
             String imageUrl = page.substring(10, page.indexOf(".png") + 4);
 
-            downloader.downloadFiles(imageUrl,"temp/" + link + ".png",1);
+            downloader.downloadFiles(imageUrl,strPath+"prnt\\" + link + ".png",buffSize);
             System.out.println("image: " + link + " download");
         }
     }
@@ -76,7 +54,7 @@ public class Main {
 
             System.out.println(soursImgur + link);
 
-            downloader.downloadFiles(soursImgur + link,"imgur/" + link ,1);
+            downloader.downloadFiles(soursImgur + link,strPath+"imgur\\" + link ,buffSize);
             System.out.println("image: " + link + " download");
         }
     }
