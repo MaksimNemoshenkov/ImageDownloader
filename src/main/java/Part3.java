@@ -38,9 +38,4 @@ public class Part3 extends Thread {
             counter2++;
         }
     }
-
-    public static void main(String[] args) {
-        Part3 p = new Part3(3, 5, 100);
-        p.test();
-    }
 }
